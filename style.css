@@ -36,12 +36,21 @@
     border: none;
 }
 
+.fa-arrow-left {
+    font-size: 1rem;
+}
+
 .button-container button:focus {
     box-shadow: none;
     background-color: rgba(0,0,0,0.2);
 }
 
 .display {
+    color: #fff;
+    text-align: right;
+    font-size: 50px;
+    font-weight: 700;
+    padding: 1.5rem;
     height: 40vh;
 }
 
@@ -58,6 +67,7 @@
 .keys {
     flex: 0 0 100%;
     display: flex;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
 }
 
@@ -70,10 +80,6 @@
     border-radius: 10px;
     display: flex;
     flex: 1 1 100%;
-}
-
-#btn0 {
-    flex-grow: 40;
 }
 
 .operator-container {
