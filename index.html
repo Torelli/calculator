@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&family=Roboto:ital,wght@0,900;1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="container-fluid calculator-container">
+        <article class="calculator">
+            <div class="display"></div>
+            <div class="button-container">
+                <div class="main-keys">
+                    <div class="btn-special-container">
+                        <button class="btn-special" id="clear">C</button>
+                        <button class="btn-special" id="pos-neg">+/-</button>
+                        <button class="operator btn-special" id="module">%</button>
+                    </div>
+                    <div class="keys">
+                        <button class="key" id="btn1">1</button>
+                        <button class="key" id="btn2">2</button>
+                        <button class="key" id="btn3">3</button>
+                        <button class="key" id="btn4">4</button>
+                        <button class="key" id="btn5">5</button>
+                        <button class="key" id="btn6">6</button>
+                        <button class="key" id="btn7">7</button>
+                        <button class="key" id="btn8">8</button>
+                        <button class="key" id="btn9">9</button>
+                        <button class="key" id="btn0">0</button>
+                        <button class="key" id="dot">.</button>
+                    </div>
+                </div>
+                <div class="operator-container">
+                    <button class="operator" id="multiply">×</button>
+                    <button class="operator" id="divide">÷</button>
+                    <button class="operator" id="subtract">-</button>
+                    <button class="operator" id="add">+</button>
+                    <button class="operator" id="equals">=</button>
+                </div>
+            </div>
+        </article>
+    </main>
+    <script src="./script.js"></script>
 </body>
 </html>

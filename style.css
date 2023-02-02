@@ -1,0 +1,83 @@
+* {
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.calculator-container{
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 1rem;
+}
+
+.calculator {
+    padding: 0;
+    background: linear-gradient(145deg,#371597,#220B5E);
+    border-radius: 30px;
+}
+
+.button-container, .operator-container, .main-keys {
+    display: flex;
+}
+
+.button-container {
+    background: linear-gradient(145deg,#371597,#220B5E);
+    border-radius: 30px;
+    padding: 1.5rem;
+    height: 55vh;
+}
+
+.button-container button {
+    font-weight: 500;
+    font-size: 2rem;
+    background-color: rgba(0,0,0,0);
+    margin-bottom: 0;
+    border: none;
+}
+
+.button-container button:focus {
+    box-shadow: none;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.display {
+    height: 35vh;
+}
+
+.main-keys {
+    flex: 0 1 80%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.operator, .main-keys {
+    gap: 5px;
+}
+
+.keys {
+    flex: 0 0 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.key, .btn-special {
+    flex: 1 1 32%;
+}
+
+.btn-special-container {
+    background: linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,0.4));
+    border-radius: 10px;
+    display: flex;
+    flex: 1 1 100%;
+}
+
+#btn0 {
+    flex-grow: 40;
+}
+
+.operator-container {
+    background: linear-gradient(180deg,#FED01B,#9B1956);
+    border-radius: 10px;
+    flex: 0 1 20%;
+    flex-wrap: wrap;
+}
