@@ -7,13 +7,14 @@
 
 .calculator-container{
     font-family: 'Montserrat', sans-serif;
-    padding: 0 1rem;
+    padding: 0;
 }
 
 .calculator {
     padding: 0;
     background: linear-gradient(145deg,#4e1dd3,#220B5E);
-    border-radius: 30px;
+    /* border-radius: 30px; */
+    margin: 0;
 }
 
 .button-container, .operator-container, .main-keys {
@@ -24,7 +25,7 @@
     background: linear-gradient(145deg,#4e1dd3,#220B5E);
     border-radius: 30px;
     padding: 1.5rem;
-    height: 55vh;
+    height: 60vh;
 }
 
 .button-container button {
@@ -41,7 +42,7 @@
 }
 
 .display {
-    height: 35vh;
+    height: 40vh;
 }
 
 .main-keys {
