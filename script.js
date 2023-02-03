@@ -12,11 +12,13 @@ const btn0 = document.querySelector('#btn0');
 const btnDot = document.querySelector('#dot');
 const btnMultiply = document.querySelector('#multiply');
 const btnDivide = document.querySelector('#divide');
+const btnModulus = document.querySelector('#modulus');
 const btnSubtract = document.querySelector('#subtract');
 const btnAdd = document.querySelector('#add');
 const btnEquals = document.querySelector('#equals');
 const btnClear = document.querySelector('#clear');
 const btnDelete = document.querySelector('#delete');
+const btnPosNeg = document.querySelector('#pos-neg');
 const display = document.querySelector("#display");
 
 function displayContent(value) {
@@ -35,23 +37,58 @@ function displayOperators(value) {
     }
 }
 
-function getResult () {
-    let operations = display.textContent.split(" ");
-    let result;
-    let mIndex = operations.indexOf("×");
+function getResult (operations) {
+    let result = 0;
+    let mIndex = -1;
+    let dIndex = -1;
+    let modIndex = -1;
+    let addIndex = -1;
+    let subIndex = -1;
     let multiplication = 0;
+    let division = 0;
+    let modulus = 0;
     if(operations[operations.length-1] != "") {
+        dIndex = operations.indexOf("÷");
+        while(dIndex >= 0) {
+            if (+operations[dIndex + 1] == 0) {
+                division = NaN;
+            } else {
+                division = Math.round(((+operations[dIndex - 1]) / (+operations[dIndex + 1]) + Number.EPSILON) * 100) / 100;
+            }
+            operations.splice(dIndex - 1, 3, division);
+            dIndex = operations.indexOf("÷");
+        }
+        mIndex = operations.indexOf("×");
         while(mIndex >= 0) {
             multiplication = ((+operations[mIndex - 1]) * (+operations[mIndex + 1]));
-            operations.splice(mIndex - 1, 3);
-            operations.splice(mIndex - 1, 0, multiplication);
+            operations.splice(mIndex - 1, 3, multiplication);
             mIndex = operations.indexOf("×");
-            console.log(multiplication);
         }
-        console.log(operations);
-        
+        modIndex = operations.indexOf("%");
+        while(modIndex >= 0) {
+            if(+operations[dIndex + 1] == 0) {
+                modulus = NaN;
+            } else {
+                modulus = ((+operations[modIndex - 1]) % (+operations[modIndex + 1]));
+            }
+            operations.splice(dIndex - 1, 3, modulus);
+            modIndex = operations.indexOf("%");
+        }
+        addIndex = operations.indexOf("+");
+        while(addIndex >= 0) {
+            result = +operations[addIndex - 1] + +operations[addIndex + 1];
+            operations.splice(addIndex - 1, 3, result);
+            addIndex = operations.indexOf("+");
+        }
+        subIndex = operations.indexOf("-");
+        while(subIndex >= 0) {
+            result = +operations[subIndex - 1] - +operations[subIndex + 1];
+            operations.splice(subIndex - 1, 3, result);
+            subIndex = operations.indexOf("-");
+        }
+       
+       return Math.round(((+operations[0]) + Number.EPSILON) * 100) / 100; 
     }
-    // let numbers = display.textContent.split(/[^0-9]/g);
 }
 
 btn1.addEventListener("click", (e) => displayContent(e.target.textContent));
@@ -101,8 +138,17 @@ btnSubtract.addEventListener("click", (e) => displayOperators(` ${e.target.textC
 
 btnAdd.addEventListener("click", (e) => displayOperators(` ${e.target.textContent} `));
 
+btnModulus.addEventListener("click", (e) => displayOperators(` ${e.target.textContent} `));
+
 btnEquals.addEventListener("click", () => {
-    getResult();
+    let operations = display.textContent.split(" ");
+    clearDisplay();
+    displayContent(getResult(operations));
+});
+
+btnPosNeg.addEventListener("click", () => {
+    let contentArray = display.textContent.split(" ");
+    if((contentArray.length === 1)) display.textContent = (+contentArray[0]) * -1;
 });
 
 container.addEventListener("click", () => {
@@ -112,5 +158,4 @@ container.addEventListener("click", () => {
     } else {
         display.setAttribute("style","font-size: 50px");
     }
-    console.log(contentArray);
 });
