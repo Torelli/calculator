@@ -45,13 +45,20 @@
     background-color: rgba(0,0,0,0.2);
 }
 
-.display {
+.display-container {
     color: #fff;
     text-align: right;
     font-size: 50px;
     font-weight: 700;
     padding: 1.5rem;
     height: 40vh;
+}
+
+#realtime-display {
+    position: absolute;
+    top: 35%;
+    right: 30px;
+    font-size: 25px;
 }
 
 .main-keys {

@@ -19,7 +19,13 @@ const btnEquals = document.querySelector('#equals');
 const btnClear = document.querySelector('#clear');
 const btnDelete = document.querySelector('#delete');
 const btnPosNeg = document.querySelector('#pos-neg');
-const display = document.querySelector("#display");
+const display = document.querySelector('#display');
+const realTimeDisplay = document.querySelector('#realtime-display');
+
+function displayResult(value) {
+    clearDisplay();
+    display.textContent = value;
+}
 
 function displayContent(value) {
     display.textContent += value;
@@ -37,7 +43,8 @@ function displayOperators(value) {
     }
 }
 
-function getResult (operations) {
+function getResult () {
+    let operations = display.textContent.split(" ");
     let result = 0;
     let mIndex = -1;
     let dIndex = -1;
@@ -141,9 +148,7 @@ btnAdd.addEventListener("click", (e) => displayOperators(` ${e.target.textConten
 btnModulus.addEventListener("click", (e) => displayOperators(` ${e.target.textContent} `));
 
 btnEquals.addEventListener("click", () => {
-    let operations = display.textContent.split(" ");
-    clearDisplay();
-    displayContent(getResult(operations));
+    displayResult(getResult());
 });
 
 btnPosNeg.addEventListener("click", () => {
@@ -153,6 +158,11 @@ btnPosNeg.addEventListener("click", () => {
 
 container.addEventListener("click", () => {
     let contentArray = display.textContent.split("").filter(char => char.trim());
+    if(display.textContent.split(" ").length > 1){
+        realTimeDisplay.textContent = getResult();
+    } else {
+        realTimeDisplay.textContent = "";
+    }
     if(contentArray.length >= 8 && contentArray.some(char => isNaN(char))){
         display.setAttribute("style","font-size: 30px");
     } else {
