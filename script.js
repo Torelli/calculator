@@ -49,12 +49,16 @@ function displayResult(value) {
 }
 
 function displayContent(value) {
-    if(display.textContent.trim().length < 15) display.textContent += value;
+    if(display.textContent.trim().length < 15){
+        display.textContent += value;
+    } else if  (display.textContent.trim().length === 15){
+        display.textContent += "\n" + value;
+    } else if (display.textContent.trim().length <= 30) {
+        display.textContent += value;
+    }
 }
 
 function clearDisplay () {
-    fontSize = 40;
-    charLimit = 3;
     display.textContent = "";
 }
 
@@ -173,8 +177,6 @@ btnModulus.addEventListener("click", (e) => displayOperators(` ${e.target.textCo
 
 btnEquals.addEventListener("click", () => {
     displayResult(getResult());
-    fontSize = 40;
-    charLimit = 3;
 });
 
 btnPosNeg.addEventListener("click", () => {
