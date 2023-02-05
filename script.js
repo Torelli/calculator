@@ -22,16 +22,39 @@ const btnPosNeg = document.querySelector('#pos-neg');
 const display = document.querySelector('#display');
 const realTimeDisplay = document.querySelector('#realtime-display');
 
+let fontSize = 40;
+let charLimit = 3;
+
+function adjustFontSize() {
+    let diff = 5 * (charLimit - display.textContent.trim().length);
+    fontSize = 40 + diff;
+    if (fontSize < 10) fontSize = 10;
+    if (fontSize > 40) fontSize = 40;
+    display.setAttribute("style",`font-size: ${fontSize}vw`);
+}
+
+function displayRealtimeResult() {
+    let displayContent = display.textContent.split(" ").filter(i => i !== "");
+    if(displayContent.length > 2 && !isNaN(+displayContent[displayContent.length - 1])){
+        console.log(displayContent);
+        realTimeDisplay.textContent = `= ${getResult(displayContent)}`;
+    } else {
+        realTimeDisplay.textContent = "";
+    }
+}
+
 function displayResult(value) {
     clearDisplay();
     display.textContent = value;
 }
 
 function displayContent(value) {
-    display.textContent += value;
+    if(display.textContent.trim().length < 15) display.textContent += value;
 }
 
 function clearDisplay () {
+    fontSize = 40;
+    charLimit = 3;
     display.textContent = "";
 }
 
@@ -39,12 +62,12 @@ function displayOperators(value) {
     {
         let contentArray = display.textContent.split("");
         let i = contentArray.length - 1;
-        if(!isNaN(contentArray[i])) displayContent(value);
+        if(!isNaN(contentArray[i]) && contentArray[i] != " ") displayContent(value);
     }
 }
 
-function getResult () {
-    let operations = display.textContent.split(" ");
+function getResult (value = display.textContent.split(" ")) {
+    let operations = value;
     let result = 0;
     let mIndex = -1;
     let dIndex = -1;
@@ -86,6 +109,7 @@ function getResult () {
             result = +operations[addIndex - 1] + +operations[addIndex + 1];
             operations.splice(addIndex - 1, 3, result);
             addIndex = operations.indexOf("+");
+            console.log(operations);
         }
         subIndex = operations.indexOf("-");
         while(subIndex >= 0) {
@@ -149,6 +173,8 @@ btnModulus.addEventListener("click", (e) => displayOperators(` ${e.target.textCo
 
 btnEquals.addEventListener("click", () => {
     displayResult(getResult());
+    fontSize = 40;
+    charLimit = 3;
 });
 
 btnPosNeg.addEventListener("click", () => {
@@ -157,15 +183,7 @@ btnPosNeg.addEventListener("click", () => {
 });
 
 container.addEventListener("click", () => {
-    let contentArray = display.textContent.split("").filter(char => char.trim());
-    if(display.textContent.split(" ").length > 1){
-        realTimeDisplay.textContent = getResult();
-    } else {
-        realTimeDisplay.textContent = "";
-    }
-    if(contentArray.length >= 8 && contentArray.some(char => isNaN(char))){
-        display.setAttribute("style","font-size: 30px");
-    } else {
-        display.setAttribute("style","font-size: 50px");
-    }
+    displayRealtimeResult();
+    adjustFontSize();
+    // let contentArray = display.textContent.split("").filter(char => char.trim());
 });

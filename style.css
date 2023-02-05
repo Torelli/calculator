@@ -46,12 +46,20 @@
 }
 
 .display-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
     color: #fff;
     text-align: right;
-    font-size: 50px;
     font-weight: 700;
     padding: 1.5rem;
     height: 40vh;
+}
+
+#display {
+    font-size: 40vw;
+    display: inline;
 }
 
 #realtime-display {
@@ -94,4 +102,12 @@
     border-radius: 10px;
     flex: 0 1 20%;
     flex-wrap: wrap;
+}
+
+#calculator-nav {
+    position:fixed;
+}
+
+.fa-github {
+    font-size: 30px;
 }
