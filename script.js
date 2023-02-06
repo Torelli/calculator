@@ -106,9 +106,9 @@ function getResult (value = display.textContent.split(" ")) {
             if(+operations[modIndex + 1] == 0) {
                 modulus = NaN;
             } else {
-                modulus = ((+operations[modIndex - 1]) % (+operations[modIndex + 1]));
+                modulus = +operations[modIndex - 1] % +operations[modIndex + 1];
             }
-            operations.splice(dIndex - 1, 3, modulus);
+            operations.splice(modIndex - 1, 3, modulus);
             modIndex = operations.indexOf("%");
         }
         while(operations.length > 1) {
