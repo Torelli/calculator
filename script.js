@@ -42,7 +42,6 @@ function adjustFontSize() {
 function displayRealtimeResult() {
     let displayContent = display.textContent.split(" ").filter(i => i !== "");
     if(displayContent.length > 2 && !isNaN(+displayContent[displayContent.length - 1])){
-        console.log(displayContent);
         realTimeDisplay.textContent = `= ${getResult(displayContent)}`;
     } else {
         realTimeDisplay.textContent = "";
@@ -82,8 +81,6 @@ function getResult (value = display.textContent.split(" ")) {
     let mIndex = -1;
     let dIndex = -1;
     let modIndex = -1;
-    let addIndex = -1;
-    let subIndex = -1;
     let multiplication = 0;
     let division = 0;
     let modulus = 0;
@@ -114,20 +111,15 @@ function getResult (value = display.textContent.split(" ")) {
             operations.splice(dIndex - 1, 3, modulus);
             modIndex = operations.indexOf("%");
         }
-        addIndex = operations.indexOf("+");
-        while(addIndex >= 0) {
-            result = +operations[addIndex - 1] + +operations[addIndex + 1];
-            operations.splice(addIndex - 1, 3, result);
-            addIndex = operations.indexOf("+");
-            console.log(operations);
+        while(operations.length > 1) {
+            if(operations[1] === "+") {
+                result = +operations[0] + +operations[2];
+                operations.splice(0, 3, result);
+            } else {
+                result = +operations[0] - +operations[2];
+                operations.splice(0, 3, result);
+            }
         }
-        subIndex = operations.indexOf("-");
-        while(subIndex >= 0) {
-            result = +operations[subIndex - 1] - +operations[subIndex + 1];
-            operations.splice(subIndex - 1, 3, result);
-            subIndex = operations.indexOf("-");
-        }
-       
        return Math.round(((+operations[0]) + Number.EPSILON) * 100) / 100; 
     }
 }
@@ -173,7 +165,7 @@ btnDelete.addEventListener("click", () => {
     if(display.textContent != "") {
         contentArray = display.textContent.split("");
         if(display.textContent[display.textContent.length - 1] == " ") {
-            contentArray.splice(contentArray.length - 2, 3);
+            contentArray.splice(contentArray.length - 3, 3);
         } else {
             contentArray.pop();
         }
