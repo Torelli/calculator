@@ -30,7 +30,11 @@ function adjustFontSize() {
     fontSize = 40 + diff;
     if (fontSize < 10) fontSize = 10;
     if (fontSize > 40) fontSize = 40;
-    display.setAttribute("style",`font-size: ${fontSize}vw`);
+    if(document.body.offsetWidth >= 992) {
+        display.setAttribute("style",`font-size: ${fontSize * 0.2}rem`);
+    } else {
+        display.setAttribute("style",`font-size: ${fontSize}vw`);
+    }
 }
 
 function displayRealtimeResult() {

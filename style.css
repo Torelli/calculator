@@ -1,8 +1,11 @@
 * {
-    /* border: 1px solid red; */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+#desktop-nav {
+    display: none;
 }
 
 .calculator-container{
@@ -13,7 +16,6 @@
 .calculator {
     padding: 0;
     background: linear-gradient(145deg,#4e1dd3,#220B5E);
-    /* border-radius: 30px; */
     margin: 0;
 }
 
@@ -105,9 +107,80 @@
 }
 
 #calculator-nav {
-    position:fixed;
+    position:absolute;
 }
 
 .fa-github {
     font-size: 30px;
+}
+
+@media only screen and (min-width: 992px){
+    :root:not([data-theme=dark]), [data-theme=light] {
+        --primary: rgb(229, 55, 52);
+        --primary-hover: rgb(158, 43, 41);
+        --primary-focus: rgba(193, 16, 16, 0.125);
+        --modal-overlay-background-color: rgba(226,220,213,0.7);
+    }
+    
+    :root:not([data-theme=light]), [data-theme=dark] {
+        --primary: rgb(229, 55, 52);
+        --primary-hover: rgb(250, 60, 70);
+        --primary-focus: rgba(193, 16, 16, 0.25);
+        --modal-overlay-background-color: rgba(52,51,50,0.8);
+    }
+    
+    h1 {
+        font-size: larger;
+    }
+    
+    p {
+        font-size: small;
+    }
+    
+    hgroup {
+        margin-bottom: 0;
+    }
+    
+    hgroup>:last-child {
+        font-size: small;
+    }
+    
+    body>nav {
+        box-shadow:0 1px 0 rgba(115, 130, 140, 0.2);
+    }
+    
+    body>main {
+        padding-top: 30px;
+    }
+    
+    #theme-btn, #toggle-grid {
+        cursor: pointer;
+        text-decoration: none;
+    }
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+    #desktop-nav {
+        display: flex;
+    }
+    .calculator-container {
+        display: flex;
+        justify-content: center;
+    }
+    .calculator {
+        width: 412px;
+        height: 915px;
+        transform: scale(0.4) translateY(-70%);
+        border-radius: 30px;
+    }
+    .button-container {
+        height:60%;
+    }
+    .display-container {
+        height: 40%;
+    }
+    #display {
+        font-size: 40%;
+    }
 }
