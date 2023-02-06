@@ -1,6 +1,6 @@
 {
     "name": "Torelli's Calculator",
-    "short_name": "TC",
+    "short_name": "Calculator",
     "description": "a simple but stylish Calculator",
     "scope": "/calculator/",
     "start_url": "/calculator/",
