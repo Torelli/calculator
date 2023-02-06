@@ -19,7 +19,7 @@
 
 .calculator {
     padding: 0;
-    background: linear-gradient(145deg,#4e1dd3,#220B5E);
+    background: linear-gradient(135deg,#4e1dd3,#220B5E);
     margin: 0;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .button-container {
-    background: linear-gradient(145deg,#4e1dd3,#220B5E);
+    background: linear-gradient(135deg,#4e1dd3,#220B5E);
     border-radius: 30px;
     padding: 1.5rem;
     height: 60vh;

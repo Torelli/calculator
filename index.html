@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&family=Roboto:ital,wght@0,900;1,100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://torelli.github.io/calculator/" />
+    <link rel="manifest" href="/calculator/manifest.webmanifest">
 </head>
 <body>
     <nav id="desktop-nav" class="container-fluid nav">
@@ -68,6 +70,14 @@
             </div>
         </article>
     </main>
+    <script>
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.register (
+            '/calculator/sw.js',
+            {scope: '/calculator/'}
+          )
+        }
+    </script>
     <script src="https://kit.fontawesome.com/eb34185c6d.js" crossorigin="anonymous"></script>
     <script src="./script.js"></script>
 </body>

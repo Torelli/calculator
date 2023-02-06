@@ -1,0 +1,17 @@
+{
+    "name": "Torelli's Calculator",
+    "short_name": "TC",
+    "description": "a simple but stylish Calculator",
+    "scope": "/calculator/",
+    "start_url": "/calculator/",
+    "background_color": "#11191F",
+    "theme_color": "#11191F",
+    "display": "standalone", 
+    "icons": [
+        {
+          "src": "/calculator/img/icon.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+    ]
+  }
