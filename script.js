@@ -103,7 +103,7 @@ function getResult (value = display.textContent.split(" ")) {
         }
         modIndex = operations.indexOf("%");
         while(modIndex >= 0) {
-            if(+operations[dIndex + 1] == 0) {
+            if(+operations[modIndex + 1] == 0) {
                 modulus = NaN;
             } else {
                 modulus = ((+operations[modIndex - 1]) % (+operations[modIndex + 1]));
