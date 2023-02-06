@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+.fa-github {
+    color: #FFF;
+}
+
 #desktop-nav {
     display: none;
 }
@@ -120,6 +124,7 @@
         --primary-hover: rgb(158, 43, 41);
         --primary-focus: rgba(193, 16, 16, 0.125);
         --modal-overlay-background-color: rgba(226,220,213,0.7);
+        --shadow-theme: rgba(0, 0, 0, 0.8);
     }
     
     :root:not([data-theme=light]), [data-theme=dark] {
@@ -127,6 +132,7 @@
         --primary-hover: rgb(250, 60, 70);
         --primary-focus: rgba(193, 16, 16, 0.25);
         --modal-overlay-background-color: rgba(52,51,50,0.8);
+        --shadow-theme: rgba(0, 0, 0, 0.35)
     }
     
     h1 {
@@ -173,6 +179,7 @@
         height: 915px;
         transform: scale(0.4) translateY(-70%);
         border-radius: 30px;
+        box-shadow: var(--shadow-theme) 0px 5px 15px;
     }
     .button-container {
         height:60%;

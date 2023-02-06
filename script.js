@@ -1,3 +1,5 @@
+const html = document.querySelector("html");
+const themeButton = document.querySelector("#theme-btn");
 const container = document.querySelector('.calculator-container');
 const btn1 = document.querySelector('#btn1');
 const btn2 = document.querySelector('#btn2');
@@ -129,6 +131,16 @@ function getResult (value = display.textContent.split(" ")) {
        return Math.round(((+operations[0]) + Number.EPSILON) * 100) / 100; 
     }
 }
+
+themeButton.addEventListener('click', () => {
+    if(html.getAttribute("data-theme") === "dark"){
+        html.setAttribute('data-theme','light');
+        themeButton.setAttribute("data-tooltip", "Turn on dark mode");
+    } else {
+        html.setAttribute('data-theme','dark');
+        themeButton.setAttribute("data-tooltip", "Turn off dark mode");
+    }
+});
 
 btn1.addEventListener("click", (e) => displayContent(e.target.textContent));
 
