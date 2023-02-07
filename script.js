@@ -26,17 +26,28 @@ const realTimeDisplay = document.querySelector('#realtime-display');
 
 let fontSize = 40;
 let charLimit = 3;
+let lastContent = 0;
 
 function adjustFontSize() {
-    let diff = 5 * (charLimit - display.textContent.trim().length);
-    fontSize = 40 + diff;
-    if (fontSize < 10) fontSize = 10;
+    let contentArray = display.textContent.split("").filter(char => char.trim());
+    let diff = 10 * (charLimit - contentArray.length);
+    if(contentArray.length >= 5 || contentArray.some(char => isNaN(char)) && contentArray.length >= 2) {
+        if(lastContent < contentArray.length) {
+            fontSize -= 5;
+        } else if(contentArray.length < 7){
+            fontSize = 20;
+        }
+    } else {
+        fontSize = 40 + diff;
+    }
+    if (fontSize < 15) fontSize = 15;
     if (fontSize > 40) fontSize = 40;
     if(document.body.offsetWidth >= 992) {
         display.setAttribute("style",`font-size: ${fontSize * 0.2}rem`);
     } else {
         display.setAttribute("style",`font-size: ${fontSize}vw`);
     }
+    lastContent = contentArray.length;
 }
 
 function displayRealtimeResult() {
@@ -54,11 +65,7 @@ function displayResult(value) {
 }
 
 function displayContent(value) {
-    if(display.textContent.trim().length < 15){
-        display.textContent += value;
-    } else if  (display.textContent.trim().length === 15){
-        display.textContent += "\n" + value;
-    } else if (display.textContent.trim().length <= 30) {
+    if(display.textContent.split("").filter(char => char.trim()).length < 24){
         display.textContent += value;
     }
 }
@@ -71,7 +78,12 @@ function displayOperators(value) {
     {
         let contentArray = display.textContent.split("");
         let i = contentArray.length - 1;
+        // console.log(contentArray);
         if(!isNaN(contentArray[i]) && contentArray[i] != " ") displayContent(value);
+        if(contentArray.length > 0 && contentArray[i] == " ") {
+            contentArray.splice(i - 2, 3, value);
+            display.textContent = contentArray.join("");
+        }
     }
 }
 
@@ -155,7 +167,8 @@ btn9.addEventListener("click", (e) => displayContent(e.target.textContent));
 btn0.addEventListener("click", (e) => displayContent(e.target.textContent));
 
 btnDot.addEventListener("click", (e) => {
-    if(!(display.textContent.split("").some(char => char === "."))) displayContent(e.target.textContent);
+    let contentArray = display.textContent.split(" ");
+    if(!(contentArray[contentArray.length - 1].split("").some(char => char === "."))) displayContent(e.target.textContent);
 });
 
 btnClear.addEventListener("click", clearDisplay);
