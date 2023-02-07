@@ -1,52 +1,79 @@
-var GHPATH = '/calculator';
-var APP_PREFIX = 't_calculator';
-var VERSION = 'version_003';
-var URLS = [    
-  `${GHPATH}/`,
-  `${GHPATH}/index.html`,
-  `${GHPATH}/styles.css`,
-  `${GHPATH}/img/icon.png`,
-  `${GHPATH}/script.js`
-]
+var cacheName = 'epwa';
 
-var CACHE_NAME = APP_PREFIX + VERSION
-self.addEventListener('fetch', function (e) {
-  console.log('Fetch request : ' + e.request.url);
-  e.respondWith(
-    caches.match(e.request).then(function (request) {
-      if (request) { 
-        console.log('Responding with cache : ' + e.request.url);
-        return request
-      } else {       
-        console.log('File is not cached, fetching : ' + e.request.url);
-        return fetch(e.request)
-      }
+var filesToCache = [
+
+  // infrastructure files ----------------------------------------------------------------------------------------------
+  '/',
+  'index.html',
+  'sw.js',
+  'manifest.webmanifest',
+  'img/favicon.ico',
+  //--------------------------------------------------------------------------------------------------------------------
+
+  // app files ---------------------------------------------------------------------------------------------------------,
+  'style.css',
+  'img/logo256.png',
+  'img/logo512.png',
+  'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&family=Roboto:ital,wght@0,900;1,100&display=swap',
+  'https://unpkg.com/@picocss/pico@1.*/css/pico.min.css',
+  'https://kit.fontawesome.com/eb34185c6d.js'
+  // -------------------------------------------------------------------------------------------------------------------
+];
+
+// todo: check if service worker is installed before
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(function() {
+    console.log('sw: registration ok');
+  }).catch(function(err) {
+    console.error(err);
+  });
+}
+// ---------------------------------------------------------------------------------------------------------------------
+/**
+ * 'Install' event. Writing files to browser cache
+ *
+ * @param {string} Event name ('install')
+ * @param {function} Callback function with event data
+ *
+ */
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('sw: writing files into cache');
+      return cache.addAll(filesToCache);
     })
   )
-})
-
-self.addEventListener('install', function (e) {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      console.log('Installing cache : ' + CACHE_NAME);
-      return cache.addAll(URLS)
+});
+// ---------------------------------------------------------------------------------------------------------------------
+/**
+ * 'Activate' event. Service worker is activated
+ *
+ * @param {string} Event name ('activate')
+ * @param {function} Callback function with event data
+ *
+ */
+self.addEventListener('activate', function (event) {
+  console.log('sw: service worker ready and activated', event);
+});
+// ---------------------------------------------------------------------------------------------------------------------
+/**
+ * 'Fetch' event. Browser tries to get resources making a request
+ *
+ * @param {string} Event name ('fetch')
+ * @param {function} Callback function with event data
+ *
+ */
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    // test if the request is cached
+    caches.match(event.request).then(function(response) {
+      // 1) if response cached, it will be returned from browser cache
+      // 2) if response not cached, fetch resource from network
+      return response || fetch(event.request);
+    }).catch(function (err) {
+      // if response not cached and network not available an error is thrown => return fallback image
+      return caches.match('img/offline-img.png');
     })
   )
-})
-
-self.addEventListener('activate', function (e) {
-  e.waitUntil(
-    caches.keys().then(function (keyList) {
-      var cacheWhitelist = keyList.filter(function (key) {
-        return key.indexOf(APP_PREFIX)
-      })
-      cacheWhitelist.push(CACHE_NAME);
-      return Promise.all(keyList.map(function (key, i) {
-        if (cacheWhitelist.indexOf(key) === -1) {
-          console.log('Deleting cache : ' + keyList[i] );
-          return caches.delete(keyList[i])
-        }
-      }))
-    })
-  )
-})
+});
+// ---------------------------------------------------------------------------------------------------------------------
