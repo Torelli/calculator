@@ -3,7 +3,7 @@ var cacheName = 'epwa';
 var filesToCache = [
 
   // infrastructure files ----------------------------------------------------------------------------------------------
-  '/',
+  '/calculator',
   'index.html',
   'sw.js',
   'manifest.webmanifest',
