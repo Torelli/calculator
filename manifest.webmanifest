@@ -1,14 +1,12 @@
 {
-    "short_name": "Calculator",
-    "name": "Torelli's Calculator",
-    "description": "a simple but stylish Calculator",
-    "lang": "en-US",
-    "scope": "/calculator/",
-    "start_url": "/calculator/",
-    "display": "standalone",
-    "orientation": "portrait",
-    "theme_color": "#11191F",
-    "background_color": "#11191F",
+  "name": "Torelli's Calculator",
+  "short_name": "TC",
+  "description": "a simple but stylish Calculator",
+  "scope": "/calculator/",
+  "start_url": "/calculator/",
+  "background_color": "#11191F",
+  "theme_color": "#11191F",
+  "display": "standalone",
     "icons": [
         {
             "src": "/calculator/img/favicon.ico",
