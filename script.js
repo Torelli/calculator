@@ -40,7 +40,7 @@ function adjustFontSize() {
     } else {
         fontSize = 35 + diff;
     }
-    if (fontSize < 15) fontSize = 15;
+    if (fontSize < 10) fontSize = 10;
     if (fontSize > 35) fontSize = 35;
     if(document.body.offsetWidth >= 992) {
         display.setAttribute("style",`font-size: ${fontSize * 0.2}rem`);
@@ -65,8 +65,15 @@ function displayResult(value) {
 }
 
 function displayContent(value) {
-    if(display.textContent.split("").filter(char => char.trim()).length < 24){
-        display.textContent += value;
+    let contentArray = display.textContent.split("");
+    let i = contentArray.length - 1;
+    if(contentArray.filter(char => char.trim()).length < 24){
+        if(value != "." && contentArray[i] == "0" && (contentArray.length === 1 || contentArray[i - 1] == " ")) {
+            contentArray.splice(i, 1, value);
+            display.textContent = contentArray.join("");
+        } else {
+            display.textContent += value;
+        }
     }
 }
 
@@ -167,7 +174,13 @@ btn0.addEventListener("click", (e) => displayContent(e.target.textContent));
 
 btnDot.addEventListener("click", (e) => {
     let contentArray = display.textContent.split(" ");
-    if(!(contentArray[contentArray.length - 1].split("").some(char => char === "."))) displayContent(e.target.textContent);
+    if(!(contentArray[contentArray.length - 1].split("").some(char => char === "."))) {
+        if(contentArray[contentArray.length - 1] == "" || contentArray[contentArray.length - 1] == " ") {
+            displayContent("0.");
+        } else {
+            displayContent(e.target.textContent);
+        }
+    }
 });
 
 btnClear.addEventListener("click", clearDisplay);
