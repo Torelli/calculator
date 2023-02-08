@@ -201,7 +201,11 @@ btnEquals.addEventListener("click", () => {
 
 btnPosNeg.addEventListener("click", () => {
     let contentArray = display.textContent.split(" ");
-    if((contentArray.length === 1)) display.textContent = (+contentArray[0]) * -1;
+    let lastValue = contentArray[contentArray.length - 1];
+    console.log(contentArray[contentArray.length - 1]);
+    if(!isNaN(lastValue) || lastValue != "") contentArray.splice(contentArray.length - 1, 1, +lastValue * -1);
+    console.log(contentArray);
+    display.textContent = contentArray.join(" ");
 });
 
 container.addEventListener("click", () => {
