@@ -24,24 +24,24 @@ const btnPosNeg = document.querySelector('#pos-neg');
 const display = document.querySelector('#display');
 const realTimeDisplay = document.querySelector('#realtime-display');
 
-let fontSize = 40;
+let fontSize = 35;
 let charLimit = 3;
 let lastContent = 0;
 
 function adjustFontSize() {
-    let contentArray = display.textContent.split("").filter(char => char.trim());
-    let diff = 10 * (charLimit - contentArray.length);
-    if(contentArray.length >= 5 || contentArray.some(char => isNaN(char)) && contentArray.length >= 2) {
+    let contentArray = display.textContent.replaceAll(" ","").split("");
+    let diff = 12 * (charLimit - contentArray.length);
+    if(contentArray.length >= 5) {
         if(lastContent < contentArray.length) {
             fontSize -= 5;
         } else if(contentArray.length < 7){
             fontSize = 20;
         }
     } else {
-        fontSize = 40 + diff;
+        fontSize = 35 + diff;
     }
     if (fontSize < 15) fontSize = 15;
-    if (fontSize > 40) fontSize = 40;
+    if (fontSize > 35) fontSize = 35;
     if(document.body.offsetWidth >= 992) {
         display.setAttribute("style",`font-size: ${fontSize * 0.2}rem`);
     } else {
@@ -78,7 +78,6 @@ function displayOperators(value) {
     {
         let contentArray = display.textContent.split("");
         let i = contentArray.length - 1;
-        // console.log(contentArray);
         if(!isNaN(contentArray[i]) && contentArray[i] != " ") displayContent(value);
         if(contentArray.length > 0 && contentArray[i] == " ") {
             contentArray.splice(i - 2, 3, value);
