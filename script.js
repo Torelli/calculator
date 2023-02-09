@@ -53,15 +53,24 @@ function adjustFontSize() {
 function displayRealtimeResult() {
     let displayContent = display.textContent.split(" ").filter(i => i !== "");
     if(displayContent.length > 2 && !isNaN(+displayContent[displayContent.length - 1])){
-        realTimeDisplay.textContent = `= ${getResult(displayContent)}`;
+        let result = getResult(displayContent);
+        if(isNaN(result)) {
+            realTimeDisplay.textContent = result;
+        } else {
+            realTimeDisplay.textContent = `= ${result}`;
+        }
     } else {
         realTimeDisplay.textContent = "";
     }
 }
 
 function displayResult(value) {
-    clearDisplay();
-    display.textContent = value;
+    if(!isNaN(value)) {
+        display.textContent = value;
+    } else {
+        realTimeDisplay.classList.add("blinking-text");
+        setTimeout(() => realTimeDisplay.classList.remove("blinking-text"), 500)
+    }
 }
 
 function displayContent(value) {
@@ -125,7 +134,7 @@ function getResult (value = display.textContent.split(" ")) {
             operations.splice(mIndex - 1, 3, multiplication);
             mIndex = operations.indexOf("×");
         }
-        modIndex = operations.indexOf("%");
+        modIndex = operations.indexOf("٪");
         while(modIndex >= 0) {
             if(+operations[modIndex + 1] == 0) {
                 modulus = NaN;
@@ -133,7 +142,7 @@ function getResult (value = display.textContent.split(" ")) {
                 modulus = +operations[modIndex - 1] % +operations[modIndex + 1];
             }
             operations.splice(modIndex - 1, 3, modulus);
-            modIndex = operations.indexOf("%");
+            modIndex = operations.indexOf("٪");
         }
         while(operations.length > 1) {
             if(operations[1] === "+") {
@@ -143,6 +152,9 @@ function getResult (value = display.textContent.split(" ")) {
                 result = +operations[0] - +operations[2];
                 operations.splice(0, 3, result);
             }
+        }
+        if(isNaN(Math.round(((+operations[0]) + Number.EPSILON) * 100) / 100)) {
+            return "You can't divide by 0"
         }
        return Math.round(((+operations[0]) + Number.EPSILON) * 100) / 100; 
     }

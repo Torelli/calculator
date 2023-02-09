@@ -195,3 +195,19 @@
         font-size: 40%;
     }
 }
+
+.blinking-text {
+    animation: blink-text 0.5s;
+}
+
+@keyframes blink-text {
+    0% {
+        color: hsl(205deg, 16%, 77%);
+    }
+    50% {
+        color: hsl(0, 50%, 60%);
+    }
+    100% {
+        color: hsl(205deg, 16%, 77%);
+    }
+}
