@@ -5,7 +5,7 @@
   "scope": "/calculator/",
   "start_url": "/calculator/",
   "background_color": "#11191F",
-  "theme_color": "#11191F",
+  "theme_color": "#4e1dd3",
   "display": "standalone",
     "icons": [
         {
@@ -15,12 +15,14 @@
         {
             "src": "/calculator/img/logo256.png",
             "type": "image/png",
-            "sizes": "256x256"
+            "sizes": "256x256",
+            "purpose": "any maskable"
         },
         {
             "src": "/calculator/img/logo512.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "purpose": "any maskable"
         }
     ]
 }

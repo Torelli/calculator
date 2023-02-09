@@ -1,6 +1,6 @@
 var GHPATH = '/calculator';
 var APP_PREFIX = 't_calculator';
-var VERSION = 'version_009';
+var VERSION = 'version_010';
 var URLS = [    
   `${GHPATH}/`,
   `${GHPATH}/index.html`,
