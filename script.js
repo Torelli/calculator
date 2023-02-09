@@ -85,7 +85,13 @@ function displayOperators(value) {
     {
         let contentArray = display.textContent.split("");
         let i = contentArray.length - 1;
-        if(!isNaN(contentArray[i]) && contentArray[i] != " ") displayContent(value);
+        if(!isNaN(contentArray[i]) && contentArray[i] != " ") {
+            if(contentArray[i] == "0") {
+                if(contentArray.length > 1 && contentArray[i-1] != " ") displayContent(value);;
+            } else {
+                displayContent(value);
+            }
+        } 
         if(contentArray.length > 0 && contentArray[i] == " ") {
             contentArray.splice(i - 2, 3, value);
             display.textContent = contentArray.join("");
